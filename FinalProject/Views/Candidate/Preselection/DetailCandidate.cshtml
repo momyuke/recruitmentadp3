@@ -259,6 +259,7 @@
                                     <td>Last Positon</td>
                                     <td>Source</td>
                                     <td>State</td>
+                                    <td>Client</td>
                                     <td>Expected Salary</td>
                                     <td>Last PIC</td>
                                     <td>Process Date</td>
@@ -268,17 +269,20 @@
                             <tbody>
                                 @foreach (var SelectHistory in Model.DataSelectionHistory)
                                 {
+                                    { string clientName = @Manage_ClientDTO.GetData().FirstOrDefault(m => m.ID == SelectHistory.CANDIDATE_CLIENT)?.CLIENT_NAME;
                                     <tr>
                                         <td>@SelectHistory.CANDIDATE_ID</td>
                                         <td>@SelectHistory.CANDIDATE_APPLIED_POSITION</td>
                                         <td>@(SelectHistory.CANDIDATE_SUITABLE_POSITION == null ? "-" : SelectHistory.CANDIDATE_SUITABLE_POSITION)</td>
                                         <td>@SelectHistory.CANDIDATE_SOURCE</td>
                                         <td>@SelectHistory.CANDIDATE_STATE_NAME</td>
+                                        <td>@(clientName == null ? "-" : clientName)</td>
                                         <td>@String.Format("{0:C}", SelectHistory.CANDIDATE_EXPECTED_SALARY)</td>
                                         <td>@SelectHistory.PIC_FULL_NAME</td>
                                         <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", SelectHistory.CANDIDATE_SOURCING_DATE))</td>
                                         <td>@SelectHistory.NOTES</td>
                                     </tr>
+                                    }
                                 }
                             </tbody>
                         </table>

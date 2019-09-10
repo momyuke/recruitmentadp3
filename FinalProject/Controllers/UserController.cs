@@ -36,7 +36,6 @@ namespace FinalProject.Controllers
                     //all most
 
                     List<TB_CANDIDATE> candpres = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2).ToList();
-                    List<TB_CANDIDATE> apa = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 4).ToList();
                     SearchTopJob(candpres);
                     List<DashboardDTO> toppres = (List<DashboardDTO>)TempData.Peek("Top");
                     DashboardDTO toppress = toppres.Where(m => m.moststate == "Pra-Selected").OrderByDescending(n => n.mostqty).FirstOrDefault();
@@ -51,13 +50,13 @@ namespace FinalProject.Controllers
                     TempData["topposition"] = Toppositions;
 
                     //month most
-                    List<TB_CANDIDATE> candpresmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 1).ToList();
+                    List<TB_CANDIDATE> candpresmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 2).ToList();
                     SearchTopJob(candpresmonth);
                     List<DashboardDTO> toppresmonth = (List<DashboardDTO>)TempData.Peek("Top");
                     DashboardDTO toppressmonth = toppresmonth.Where(m => m.moststate == "Pra-Selected").OrderByDescending(n => n.mostqty).FirstOrDefault();
                     ToppositionMonths.Add(toppressmonth);
 
-                    List<TB_CANDIDATE> candcallmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 8).ToList();
+                    List<TB_CANDIDATE> candcallmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 5).ToList();
                     SearchTopJob(candcallmonth);
                     List<DashboardDTO> topcallsmonth = (List<DashboardDTO>)TempData.Peek("Top");
                     DashboardDTO topcallmonth = topcallsmonth.Where(m => m.moststate == "Called").OrderByDescending(n => n.mostqty).FirstOrDefault();

@@ -1830,8 +1830,11 @@ namespace FinalProject.Controllers
                 {
                     var Candidate = db.TB_CANDIDATE.FirstOrDefault(c => c.ID == data.CANDIDATE_ID);
                     Candidate.CANDIDATE_STATE_ID = data.CANDIDATE_STATE;
-                    var SelHis = db.TB_CANDIDATE_SELECTION_HISTORY.FirstOrDefault(m => m.DELIVERY_ID == data.DELIVERY_ID);
-                    SelHis.VIEWS_INFORMATION = "NO";
+                    foreach (var item in db.TB_CANDIDATE_SELECTION_HISTORY.Where(m => m.DELIVERY_ID == data.DELIVERY_ID))
+                    {
+                        item.VIEWS_INFORMATION = "NO";
+                    }
+
 
                     int ProcessEdit = db.SaveChanges();
 
@@ -1888,7 +1891,7 @@ namespace FinalProject.Controllers
                     }
 
                 }
-                return Redirect("~/candidate/suggestion/read/suggested");
+                return Redirect("~/candidate/delivery/read/");
             }
             catch (Exception)
             {
