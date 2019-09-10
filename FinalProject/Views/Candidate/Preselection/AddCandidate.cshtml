@@ -191,56 +191,58 @@
                             </div>
                         </div>
                     </div>
+                    <p class="text-right text-danger">(*) Required Field</p>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
                 @*-------------------------------------Education Information----------------------------------------------------------------------------*@
-                <div class="tab-pane fade" id="nav-education_information" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label for="CANDIDATE_LAST_EDUCATON">Universitas/School<font color="red">*</font></label>
-                                    @Html.TextBoxFor(m => m.CANDIDATE_LAST_EDUCATON, new { @class = "form-control", @id = "CANDIDATE_LAST_EDUCATON" })
-                                    @Html.ValidationMessageFor(m => m.CANDIDATE_LAST_EDUCATON, null, new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="CANDIDATE_DEGREE">Degree<font color="red">*</font></label>
-                                    <select id="CANDIDATE_DEGREE" class="form-control" name="CANDIDATE_DEGREE" >
-                                        <option value="High School">High School</option>
-                                        <option value="Diploma">Diploma</option>
-                                        <option value="Bachelor">Bachelor</option>
-                                        <option value="Master">Magister</option>
-                                        <option value="Doctor">Doctor</option>
-                                    </select>
-                                    @Html.ValidationMessageFor(m => m.CANDIDATE_DEGREE, null, new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="EDUCATION_START_DATE">Start Date<font color="red">*</font></label>
-                                    @Html.TextBoxFor(m => m.EDUCATON_START_DATE, new { type = "date", @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.EDUCATON_START_DATE, null, new { @class = "text-danger" })
-                                </div>
+            <div class="tab-pane fade" id="nav-education_information" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="CANDIDATE_LAST_EDUCATON">Universitas/School<font color="red">*</font></label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_LAST_EDUCATON, new { @class = "form-control", @id = "CANDIDATE_LAST_EDUCATON" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_LAST_EDUCATON, null, new { @class = "text-danger" })
                             </div>
-                            <div class="col-sm">
-                                <div class="form-group">
-                                    <label for="CANDIDATE_MAJOR">Major<font color="red">*</font></label>
-                                    @Html.TextBoxFor(m => m.CANDIDATE_MAJOR, new { @class = "form-control", @id = "CANDIDATE_MAJOR" })
-                                    @Html.ValidationMessageFor(m => m.CANDIDATE_MAJOR, null, new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="CANDIDATE_GPA">GPA<font color="red">*</font></label>
-                                    @Html.TextBoxFor(m => m.CANDIDATE_GPA, new { @class = "form-control", @id = "CANDIDATE_GPA" })
-                                    @Html.ValidationMessageFor(m => m.CANDIDATE_GPA, null, new { @class = "text-danger" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="EDUCATION_END_DATE">End Date<font color="red">*</font></label>
-                                    @Html.TextBoxFor(m => m.EDUCATON_END_DATE, new { type = "date", @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.EDUCATON_END_DATE, null, new { @class = "text-danger" })
-                                </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_DEGREE">Degree<font color="red">*</font></label>
+                                <select id="CANDIDATE_DEGREE" class="form-control" name="CANDIDATE_DEGREE">
+                                    <option value="High School">High School</option>
+                                    <option value="Diploma">Diploma</option>
+                                    <option value="Bachelor">Bachelor</option>
+                                    <option value="Master">Magister</option>
+                                    <option value="Doctor">Doctor</option>
+                                </select>
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_DEGREE, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="EDUCATION_START_DATE">Start Date<font color="red">*</font></label>
+                                @Html.TextBoxFor(m => m.EDUCATON_START_DATE, new { type = "date", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.EDUCATON_START_DATE, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="CANDIDATE_MAJOR">Major<font color="red">*</font></label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_MAJOR, new { @class = "form-control", @id = "CANDIDATE_MAJOR" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_MAJOR, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_GPA">GPA<font color="red">*</font></label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_GPA, new { @class = "form-control", @id = "CANDIDATE_GPA" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_GPA, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="EDUCATION_END_DATE">End Date<font color="red">*</font></label>
+                                @Html.TextBoxFor(m => m.EDUCATON_END_DATE, new { type = "date", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.EDUCATON_END_DATE, null, new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
+                <p class="text-right text-danger">(*) Required Field</p>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
                 <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-contact-tab">
                     <table class="table">
                         <thead class="thead-light">

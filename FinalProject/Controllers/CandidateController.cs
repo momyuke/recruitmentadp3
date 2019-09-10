@@ -1553,7 +1553,38 @@ namespace FinalProject.Controllers
             }
         }
 
-        //=========================================================== SUGGEST CANDIDATE ==========================================================
+        //=========================================================== DELETE SUGGESTION ===========================================================
+        //Actually, this method is not delete selection history of candidate that have state PASS. But, this method just change field Views Information of selection history from "YES" to "NO"
+
+        [Route("candidate/suggestion/delete/{id?}")]
+        public ActionResult DeleteSuggestion(int id)
+        {
+            var SelHistory = db.TB_CANDIDATE_SELECTION_HISTORY.FirstOrDefault(m => m.ID == id);
+            SelHistory.VIEWS_INFORMATION = "NO";
+
+            var Edit = db.SaveChanges();
+            if(Edit > 0)
+            {
+                if (TempData["message"] == null)
+                {
+                    TempData.Add("message", "Candidate Delete of View successfully");
+                    TempData.Add("type", "success");
+                    UserLogingUtils.SaveLoggingUserActivity("edit suggest state of candidate id " + id);
+                }
+            }
+            else
+            {
+                if (TempData["message"] == null)
+                {
+                    TempData.Add("message", "Candidate failed to delete of View");
+                    TempData.Add("type", "warning");
+                }
+            }
+
+            return Redirect("~/candidate/suggestion/read/");
+        
+        }
+        //=========================================================== SUGGESTED CANDIDATE ==========================================================
 
         [Route("candidate/suggestion/read/suggested/{i?}")]
         public ActionResult SuggestedCandidate(string i = null)

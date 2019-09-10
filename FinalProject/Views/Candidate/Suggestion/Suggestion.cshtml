@@ -115,35 +115,38 @@
                                 <th scope="col">Sourcing Date</th>
                                 <th scope="col">State</th>
                                 <th scope="col">Interview Notes</th>
-                                <th scope="col" colspan="2">Action</th>
+                                <th scope="col" colspan="3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var candidate in Model)
                             {
-                                <tr>
-                                    <td>@candidate.CANDIDATE_NAME</td>
-                                    <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
-                                    <td>@candidate.CANDIDATE_SUITABLE_POSITION</td>
-                                    <td>@candidate.CANDIDATE_SOURCE</td>
-                                    <td>@candidate.CANDIDATE_PHONE</td>
-                                    <td>@(String.Format("{0:C}", candidate.CANDIDATE_EXPECTED_SALARY))</td>
-                                    <td>@candidate.PIC_FULL_NAME</td>
-                                    <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", candidate.CANDIDATE_SOURCING_DATE))</td>
-                                    <td>@candidate.CANDIDATE_STATE_NAME</td>
-                                    <td>@candidate.NOTES</td>
-                                    <td>
-                                        <a class="btn btn-success" href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID">Details</a>
-                                    </td>
-                                    <td>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary btn_next " data-toggle="modal" data-target="#NextModal"
-                                                data-candidate_id="@candidate.CANDIDATE_ID"
-                                                data-suggestion_date="@candidate.PROCESS_DATE">
-                                            Next
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@candidate.CANDIDATE_NAME</td>
+                                <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
+                                <td>@candidate.CANDIDATE_SUITABLE_POSITION</td>
+                                <td>@candidate.CANDIDATE_SOURCE</td>
+                                <td>@candidate.CANDIDATE_PHONE</td>
+                                <td>@(String.Format("{0:C}", candidate.CANDIDATE_EXPECTED_SALARY))</td>
+                                <td>@candidate.PIC_FULL_NAME</td>
+                                <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", candidate.CANDIDATE_SOURCING_DATE))</td>
+                                <td>@candidate.CANDIDATE_STATE_NAME</td>
+                                <td>@candidate.NOTES</td>
+                                <td>
+                                    <a class="btn btn-success" href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID">Details</a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger @MenuUtils.CheckButtonAcc(3, 17)" href="~/candidate/suggestion/delete/@candidate.ID">Delete</a>
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn_next @MenuUtils.CheckButtonAcc(2, 17) " data-toggle="modal" data-target="#NextModal"
+                                            data-candidate_id="@candidate.CANDIDATE_ID"
+                                            data-suggestion_date="@candidate.PROCESS_DATE">
+                                        Next
+                                    </button>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
