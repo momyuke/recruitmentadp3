@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="FinalProject_adp3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="JOB_PORTAL">
     <Key>
       <PropertyRef Name="JOB_ID" />
@@ -75,6 +75,7 @@
     <Property Name="RECOMENDATION" Type="varchar" MaxLength="50" />
     <Property Name="AVAILABLE_JOIN" Type="date" />
     <Property Name="CANDIDATE_INTERVIEW_DATE" Type="datetime" />
+    <Property Name="LAST_UPDATE" Type="datetime" />
   </EntityType>
   <EntityType Name="TB_CANDIDATE_EDUCATION_HISTORY">
     <Key>
@@ -114,10 +115,14 @@
     <Property Name="CANDIDATE_SUITABLE_POSITION" Type="varchar" MaxLength="50" />
     <Property Name="CANDIDATE_SOURCE" Type="varchar" MaxLength="50" />
     <Property Name="CANDIDATE_STATE" Type="int" />
+    <Property Name="CANDIDATE_CLIENT" Type="int" />
     <Property Name="CANDIDATE_EXPECTED_SALARY" Type="money" />
     <Property Name="CANDIDATE_INTERVIEW_DATE" Type="datetime" />
+    <Property Name="LAST_UPDATE" Type="datetime" />
     <Property Name="PROCESS_DATE" Type="datetime" />
     <Property Name="NOTES" Type="text" />
+    <Property Name="VIEWS_INFORMATION" Type="varchar" MaxLength="10" />
+    <Property Name="DELIVERY_ID" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="TB_CANDIDATE_SKILL">
     <Key>
@@ -466,7 +471,7 @@ warning 6002: The table/view 'FinalProject_adp3.dbo.TB_PREFIX' does not have a p
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DBModelStoreContainer">
+  <EntityContainer Name="FinalProject_adp3ModelStoreContainer">
     <EntitySet Name="JOB_PORTAL" EntityType="Self.JOB_PORTAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TB_ACCESS_MENU" EntityType="Self.TB_ACCESS_MENU" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TB_ACTION_CANDIDATE" EntityType="Self.TB_ACTION_CANDIDATE" Schema="dbo" store:Type="Tables" />

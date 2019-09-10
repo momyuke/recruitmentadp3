@@ -25,6 +25,9 @@ namespace FinalProject.DTO
         public int? CANDIDATE_CLIENT { get; set; }
         public System.DateTime? LAST_UPDATE { get; set; }
 
+        public string VIEWS_INFORMATION { get; set; }
+
+        public string DELIVERY_ID { get; set; }
 
         //data candidate
         public int? CANDIDATE_ID { get; set; }
@@ -62,7 +65,12 @@ namespace FinalProject.DTO
                     PROCESS_DATE = DateTime.Now,
                     NOTES = data.NOTES,
                     CANDIDATE_INTERVIEW_DATE = data.CANDIDATE_INTERVIEW_DATE,
-                    LAST_UPDATE = DateTime.Now
+                    LAST_UPDATE = DateTime.Now,
+                    VIEWS_INFORMATION = "YES",
+                    CANDIDATE_CLIENT = data.CANDIDATE_CLIENT,
+                    DELIVERY_ID = data.DELIVERY_ID
+                    
+                    
                     
                 });
 
@@ -98,6 +106,8 @@ namespace FinalProject.DTO
                         PIC_FULL_NAME = db.TB_USER.FirstOrDefault(u => u.USER_ID == sh.PIC_ID).FULL_NAME,
                         CANDIDATE_INTERVIEW_DATE = sh.CANDIDATE_INTERVIEW_DATE,
                         CANDIDATE_CLIENT = sh.CANDIDATE_CLIENT,
+                        VIEWS_INFORMATION = sh.VIEWS_INFORMATION,
+                        DELIVERY_ID = sh.DELIVERY_ID,
                         
                     }
                 ).ToList();
@@ -124,9 +134,13 @@ namespace FinalProject.DTO
                 DataSelectHistory.CANDIDATE_SUITABLE_POSITION = Data.CANDIDATE_SUITABLE_POSITION;
                 DataSelectHistory.CANDIDATE_SOURCE = Data.CANDIDATE_SOURCE;
                 DataSelectHistory.CANDIDATE_CLIENT = Data.CANDIDATE_CLIENT;
+                DataSelectHistory.VIEWS_INFORMATION = Data.VIEWS_INFORMATION;
+                DataSelectHistory.DELIVERY_ID = Data.DELIVERY_ID;
                 return db.SaveChanges();
             }
         }
+
+        
 
         
 

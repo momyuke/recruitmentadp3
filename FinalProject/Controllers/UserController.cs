@@ -16,8 +16,8 @@ namespace FinalProject.Controllers
         [Route("dashboard")]
         public ActionResult Index()
         {
-            try
-            {
+            //try
+            //{
                 if (Session["UserLogin"] == null)
                 {
                     return Redirect("~/auth/login");
@@ -35,13 +35,14 @@ namespace FinalProject.Controllers
 
                     //all most
 
-                    List<TB_CANDIDATE> candpres = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 1).ToList();
+                    List<TB_CANDIDATE> candpres = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2).ToList();
+                    List<TB_CANDIDATE> apa = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 4).ToList();
                     SearchTopJob(candpres);
                     List<DashboardDTO> toppres = (List<DashboardDTO>)TempData.Peek("Top");
-                    DashboardDTO toppress = toppres.Where(m => m.moststate == "Pra-Selection").OrderByDescending(n => n.mostqty).FirstOrDefault();
+                    DashboardDTO toppress = toppres.Where(m => m.moststate == "Pra-Selected").OrderByDescending(n => n.mostqty).FirstOrDefault();
                     Toppositions.Add(toppress);
 
-                    List<TB_CANDIDATE> candcall = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 8).ToList();
+                    List<TB_CANDIDATE> candcall = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 5).ToList();
                     SearchTopJob(candcall);
                     List<DashboardDTO> topcalls = (List<DashboardDTO>)TempData.Peek("Top");
                     DashboardDTO topcall = topcalls.Where(m => m.moststate == "Called").OrderByDescending(n => n.mostqty).FirstOrDefault();
@@ -53,7 +54,7 @@ namespace FinalProject.Controllers
                     List<TB_CANDIDATE> candpresmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 1).ToList();
                     SearchTopJob(candpresmonth);
                     List<DashboardDTO> toppresmonth = (List<DashboardDTO>)TempData.Peek("Top");
-                    DashboardDTO toppressmonth = toppresmonth.Where(m => m.moststate == "Pra-Selection").OrderByDescending(n => n.mostqty).FirstOrDefault();
+                    DashboardDTO toppressmonth = toppresmonth.Where(m => m.moststate == "Pra-Selected").OrderByDescending(n => n.mostqty).FirstOrDefault();
                     ToppositionMonths.Add(toppressmonth);
 
                     List<TB_CANDIDATE> candcallmonth = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.SOURCING_DATE.Value.Month == DateTime.Now.Month).Where(m => m.CANDIDATE_STATE_ID == 8).ToList();
@@ -65,13 +66,13 @@ namespace FinalProject.Controllers
                     TempData["toppositionmonth"] = ToppositionMonths;
 
                     //year most
-                    List<TB_CANDIDATE> candpresyear = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.CANDIDATE_STATE_ID == 1).ToList();
+                    List<TB_CANDIDATE> candpresyear = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.CANDIDATE_STATE_ID == 2).ToList();
                     SearchTopJob(candpresyear);
                     List<DashboardDTO> toppresyear = (List<DashboardDTO>)TempData.Peek("Top");
-                    DashboardDTO toppressyear = toppresyear.Where(m => m.moststate == "Pra-Selection").OrderByDescending(n => n.mostqty).FirstOrDefault();
+                    DashboardDTO toppressyear = toppresyear.Where(m => m.moststate == "Pra-Selected").OrderByDescending(n => n.mostqty).FirstOrDefault();
                     ToppositionYears.Add(toppressyear);
 
-                    List<TB_CANDIDATE> candcallyear = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.CANDIDATE_STATE_ID == 8).ToList();
+                    List<TB_CANDIDATE> candcallyear = db.TB_CANDIDATE.Where(m => m.SOURCING_DATE.Value.Year == DateTime.Now.Year).Where(m => m.CANDIDATE_STATE_ID == 5).ToList();
                     SearchTopJob(candcallyear);
                     List<DashboardDTO> topcallsyear = (List<DashboardDTO>)TempData.Peek("Top");
                     DashboardDTO topcallyear = topcallsyear.Where(m => m.moststate == "Called").OrderByDescending(n => n.mostqty).FirstOrDefault();
@@ -81,13 +82,13 @@ namespace FinalProject.Controllers
 
                     return View("Index");
                 }
-            }
-            catch
-            {
-                return Redirect("~/auth/error");
-            }
+            //}
+            //catch
+            //{
+            //    return Redirect("~/auth/error");
+            //}
         }
-        
+
 
         public ActionResult GetPie()
         {
@@ -105,15 +106,15 @@ namespace FinalProject.Controllers
         public ActionResult GetBar()
         {
             Total total = new Total();
-            total.PreJava = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 1 || m.POSITION == "Java").Count();
-            total.PrePHP = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 1 || m.POSITION == "PHP").Count();
-            total.PreRuby = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 1 || m.POSITION == "Ruby").Count();
-            total.PreVB = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 1 || m.POSITION == "VB.NET").Count();
+            total.PreJava = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2 || m.POSITION == "Java").Count();
+            total.PrePHP = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2 || m.POSITION == "PHP").Count();
+            total.PreRuby = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2 || m.POSITION == "Ruby").Count();
+            total.PreVB = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 2 || m.POSITION == "VB.NET").Count();
 
-            total.CallJava = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 8 || m.POSITION == "Java").Count();
-            total.CallPHP = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 8 || m.POSITION == "PHP").Count();
-            total.CallRuby = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 8 || m.POSITION == "Ruby").Count();
-            total.CallVB = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 8 || m.POSITION == "VB.NET").Count();
+            total.CallJava = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 5 || m.POSITION == "Java").Count();
+            total.CallPHP = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 5 || m.POSITION == "PHP").Count();
+            total.CallRuby = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 5 || m.POSITION == "Ruby").Count();
+            total.CallVB = db.TB_CANDIDATE.Where(m => m.CANDIDATE_STATE_ID == 5 || m.POSITION == "VB.NET").Count();
             return Json(total, JsonRequestBehavior.AllowGet);
         }
 

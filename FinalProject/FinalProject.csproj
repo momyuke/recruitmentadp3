@@ -2153,8 +2153,10 @@
     <Content Include="Views\Candidate\Interview\Interviewed.cshtml" />
     <Content Include="Views\Candidate\Interview\EditCandidateInterview.cshtml" />
     <Content Include="Views\Candidate\Interview\EditCandidateInterviewed.cshtml" />
+    <Content Include="Views\Candidate\Suggestion\Suggested.cshtml" />
     <Content Include="Views\Candidate\Delivery\Delivery.cshtml" />
-    <Content Include="Views\Candidate\Delivery\Suggested.cshtml" />
+    <Content Include="Views\Candidate\Preselection\CandidatePraselected.cshtml" />
+    <Content Include="Views\Candidate\Preselection\EditPraselected.cshtml" />
     <Content Include="Views\Candidate\Suggestion\Suggestion.cshtml" />
   </ItemGroup>
   <ItemGroup>

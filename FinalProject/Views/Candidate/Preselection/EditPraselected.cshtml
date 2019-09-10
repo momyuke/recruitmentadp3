@@ -1,0 +1,289 @@
+﻿﻿@model FinalProject.DTO.CandidateDTO
+@using FinalProject.Models
+@using FinalProject.DTO
+@section title{
+    Candidate - @ViewBag.DataView["title"]
+}
+@section content{
+    <h2><center>Candidate | Edit Candidate</center></h2>
+    <hr class="bg-blue" />
+    @Html.ValidationSummary()
+    <div class="container">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-personal_information" role="tab" aria-controls="nav-home" aria-selected="true">Personal Information</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-education_information" role="tab" aria-controls="nav-profile" aria-selected="false">Education Information</a>
+                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-skill" role="tab" aria-controls="nav-contact" aria-selected="false">Skill</a>
+            </div>
+        </nav>
+        <form method="post" action="~/candidate/praselection/update/praselected/next/process" enctype="multipart/form-data">
+            <div class="tab-content mt-4" id="nav-tabContent">
+                <input type="hidden" name="ID" value="@Model.ID" />
+                <div class="tab-pane fade show active" id="nav-personal_information" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="CandidateName">ID</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_ID, new { @class = "form-control", @id = "CandidateId" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CandidateName">Full Name</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_NAME, new { @class = "form-control", @id = "CandidateName" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_NAME, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CandidateName">Gender</label>
+                                <select class="form-control" id="GENDER" name="GENDER_ID">
+                                    @foreach (var d in Manage_GenderDTO.GetData())
+                                    {
+                                        <option value="@d.GENDER_ID" @if (Model.GENDER_ID == d.GENDER_ID) { @("selected") ; }>@d.GENDER_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_PLACE_BIRTH">Place Of Birth</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_PLACE_BIRTH, new { @class = "form-control", @id = "CANDIDATE_PLACE_BIRTH" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_PLACE_BIRTH, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_PLACE_BIRTH">Birth Date</label>
+                                <input type="datetime" value="@Convert.ToDateTime(Model.CANDIDATE_BIRTH_DATE).ToString("yyyy-MM-dd")" name="CANDIDATE_BIRTH_DATE" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_CITY">City</label>
+                                @Html.TextAreaFor(m => m.CANDIDATE_CITY, new { @class = "form-control", @id = "CANDIDATE_CITY" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_CITY, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_PROVINCE">Province</label>
+                                @Html.TextAreaFor(m => m.CANDIDATE_PROVINCE, new { @class = "form-control", @id = "CANDIDATE_PROVINCE" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_PROVINCE, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="GENDER_ID">Religion</label>
+                                <select class="form-control" id="RELIGION_ID" name="RELIGION_ID">
+                                    @foreach (var d in Manage_ReligionDTO.GetData())
+                                    {
+                                        <option value="@d.RELIGION_ID" @{ string r = ""; if (d.RELIGION_ID == Model.RELIGION_ID) { r = "selected"; } } @r>@d.RELIGION_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="file_pict">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file_pict" aria-describedby="file_pict" name="Pict" accept="image/*">
+                                    <label class="custom-file-label" for="file_pict">Choose file picture</label>
+                                </div>
+                            </div>
+                            <div>
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_PHOTO, null, new { @class = "text-danger" })
+                                <img id="output" width="300" />
+                            </div>
+                        </div>
+                        @*mid side form*@
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="CANDIDATE_CURRENT_ADDRESS">Address</label>
+                                @Html.TextAreaFor(m => m.CANDIDATE_CURRENT_ADDRESS, new { @class = "form-control", @id = "CANDIDATE_CURRENT_ADDRESS" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_CURRENT_ADDRESS, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="PARENT_ADDRESS">Parent Address</label>
+                                @Html.TextAreaFor(m => m.PARENT_ADDRESS, new { @class = "form-control", @id = "PARENT_ADDRESS" })
+                            </div>
+                            <div class="form-group">
+                                <label for="TELEPHONE_NUMBER">Home Number</label>
+                                @Html.TextBoxFor(m => m.TELEPHONE_NUMBER, new { @class = "form-control", @id = "TELEPHONE_NUMBER" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_EMAIL">Email</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_EMAIL, new { @class = "form-control", @id = "CANDIDATE_EMAIL" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_EMAIL, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_PHONENUMBER">Phone Number</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_PHONENUMBER, new { @class = "form-control", @id = "CANDIDATE_PHONENUMBER" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_PHONENUMBER, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDIDATE_KTP_NUMBER">KTP Card Number</label>
+                                @Html.TextBoxFor(m => m.CANDIDATE_KTP_NUMBER, new { @class = "form-control", @id = "CANDIDATE_KTP_NUMBER" })
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_KTP_NUMBER, null, new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <label for="ZIP_CODE">Zip Code</label>
+                                @Html.TextBoxFor(m => m.ZIP_CODE, new { @class = "form-control", @id = "ZIP_CODE" })
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="file_cv">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="file_cv" aria-describedby="file_pict" name="Cv">
+                                    <label class="custom-file-label" for="file_cv">Choose file Cv</label>
+                                </div>
+                            </div>
+                            <div>
+                                @Html.ValidationMessageFor(m => m.CANDIDATE_CV, null, new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        @*Right Side*@
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="GENDER_ID">Marital Status</label>
+                                <select class="form-control" id="MARITAL_STATUS_ID" name="MARITAL_STATUS_ID">
+                                    @foreach (var d in Manage_MaritalStatusDTO.GetData())
+                                    {
+                                        <option value="@d.MARITALSTATUS_ID" @if (Model.MARITAL_STATUS_ID == d.MARITALSTATUS_ID) { @("selected") }>@d.MARITALSTATUS_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="POSITION">Position</label>
+                                <select class="form-control" id="POSITION" name="POSITION">
+                                    @foreach (var d in Manage_JobPositionDTO.GetData())
+                                    {
+                                        <option value="@d.JOBPOSITION_NAME" @{string res = ""; if (Model.POSITION == d.JOBPOSITION_NAME) { res = "selected"; } } @res>
+                                            @d.JOBPOSITION_NAME
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="RECOMENDATION">Recomendation</label>
+                                @Html.TextBoxFor(m => m.RECOMENDATION, new { @class = "form-control", @id = "RECOMENDATION" })
+                            </div>
+                            <div class="form-group">
+                                <label for="SOURCE">Religion</label>
+                                <select class="form-control" id="SOURCE" name="SOURCE">
+                                    @foreach (var d in Manage_JobPortalDTO.GetData())
+                                    {
+                                        <option value="@d.JOBPORTAL_NAME">@d.JOBPORTAL_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="CANDDIATE_NPWP_NUMBER">NPWP</label>
+                                @Html.TextBoxFor(m => m.CANDDIATE_NPWP_NUMBER, new { @class = "form-control", @id = "CANDDIATE_NPWP_NUMBER" })
+                            </div>
+                            <div class="form-group">
+                                <label for="AVAILABLE_JOIN">Available Join</label>
+                                <input type="date" class="form-control" id="AVAILABLE_JOIN" name="AVAILABLE_JOIN" />
+                            </div>
+                            <div class="form-group">
+                                <label for="EXPECTED_sALARY">Expected Salary</label>
+                                @Html.TextBoxFor(m => m.EXPECTED_sALARY, new { @class = "form-control", @id = "EXPECTED_sALARY" })
+                            </div>
+                            <div class="form-group">
+                                <label for="SUITABLE_POSITION">Suitable Position </label>
+                                @Html.TextBoxFor(m => m.SUITABLE_POSITION, new { @class = "form-control", @id = "SUITABLE_POSITION" })
+                            </div>
+                            <div class="form-group">
+                                <label for="NOTES">NOTES</label>
+                                @Html.TextAreaFor(m => m.NOTES, new { @class = "form-control", @id = "NOTES" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="CANDIDATE_STATE_ID">State</label>
+                        <select class="form-control" id="CANDIDATE_STATE_ID" name="CANDIDATE_STATE_ID">
+                            @foreach (var d in (List<StateCandidateDTO>)ViewBag.DataView["ListState"])
+                            {
+                                <option style="text-transform:capitalize" value="@d.ID" @{string res = ""; if (Model.CANDIDATE_STATE_ID == d.ID) { res = "selected"; }} @res>@d.STATE_NAME</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                @*-------------------------------------Education Information----------------------------------------------------------------------------*@
+                <div class="tab-pane fade" id="nav-education_information" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="CANDIDATE_LAST_EDUCATON">Universitas/School</label>
+                                    @Html.TextBoxFor(m => m.CANDIDATE_LAST_EDUCATON, new { @class = "form-control", @id = "CANDIDATE_LAST_EDUCATON" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="CANDIDATE_DEGREE">Degree</label>
+                                    <select id="CANDIDATE_DEGREE" class="form-control" name="CANDIDATE_DEGREE">
+                                        <option value="High School" @(Model.CANDIDATE_DEGREE == "High School" ? "selected" : "")>High School</option>
+                                        <option value="Diploma" @(Model.CANDIDATE_DEGREE == "Diploma" ? "selected" : "")>Diploma</option>
+                                        <option value="Bachelor" @(Model.CANDIDATE_DEGREE == "Bachelor" ? "selected" : "")>Bachelor</option>
+                                        <option value="Master" @(Model.CANDIDATE_DEGREE == "Master" ? "selected" : "")>Magister</option>
+                                        <option value="Doctor" @(Model.CANDIDATE_DEGREE == "Doctor" ? "selected" : "")>Doctor</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(m => m.CANDIDATE_DEGREE, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="EDUCATON_START_DATE">Start Date</label>
+                                    <input type="datetime" value="@Convert.ToDateTime(Model.EDUCATON_START_DATE).ToString("yyyy-MM-dd")" name="EDUCATON_START_DATE" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.EDUCATON_START_DATE, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="CANDIDATE_MAJOR">Major</label>
+                                    @Html.TextBoxFor(m => m.CANDIDATE_MAJOR, new { @class = "form-control", @id = "CANDIDATE_MAJOR" })
+                                    @Html.ValidationMessageFor(m => m.CANDIDATE_MAJOR, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="CANDIDATE_GPA">GPA</label>
+                                    @Html.TextBoxFor(m => m.CANDIDATE_GPA, new { @class = "form-control", @id = "CANDIDATE_GPA" })
+                                    @Html.ValidationMessageFor(m => m.CANDIDATE_GPA, null, new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="EDUCATON_END_DATE">End Date</label>
+                                    <input type="datetime" value="@Convert.ToDateTime(Model.EDUCATON_END_DATE).ToString("yyyy-MM-dd")" name="EDUCATON_END_DATE" class="form-control" />
+                                    @Html.ValidationMessageFor(m => m.EDUCATON_END_DATE, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                <div class="tab-pane fade" id="nav-skill" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">NO</th>
+                                <th scope="col">Skill Name</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{int no = 1;}
+                            @foreach (var d in Manage_SkillDTO.GetData())
+                            {
+                                <tr>
+                                    <th scope="row">@(no++)</th>
+                                    <td>@d.SKILL_NAME</td>
+                                    <td>
+                                        <input type="checkbox" data-id_candidate="@Model.ID" data-skill_name="@d.SKILL_NAME" class="form-controlcheck-skill check-skill" value="@d.SKILL_NAME" name="CANDIDATE_SKILL[]" @Manage_CandidateDTO.CheckBoxSkill(d.SKILL_NAME, Model.ID) />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/Content/Assets/Js/candidate/preselection/EditCandidate.js"></script>
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        $(document).ready(function () {
+            $('input[type="file"]').change(function (e) {
+                var fileName = e.target.files[0].name;
+                alert('The file "' + fileName + '" has been selected.');
+            });
+        });
+    </script>
+}

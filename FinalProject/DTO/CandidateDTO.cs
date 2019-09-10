@@ -107,6 +107,7 @@ namespace FinalProject.DTO
 
         public List<CandidateJobExperienceDTO> DataJobExp { get; set; }
 
+        public System.DateTime? LAST_UPDATE { get; set; }
 
         public string DELIVERY_ID { get; set; }
     }
@@ -145,6 +146,8 @@ namespace FinalProject.DTO
                 var birth_date = Convert.ToDateTime(DataNewCandidate.CANDIDATE_BIRTH_DATE);
                 var edu_start_date = Convert.ToDateTime(DataNewCandidate.EDUCATON_START_DATE);
                 var edu_end_date = Convert.ToDateTime(DataNewCandidate.EDUCATON_END_DATE);
+
+                var LastUpdate = DateTime.Now;
 
                 //process insert data
                 db.TB_CANDIDATE.Add(new TB_CANDIDATE
@@ -185,7 +188,8 @@ namespace FinalProject.DTO
                     POSITION = DataNewCandidate.POSITION,
                     EDUCATION_START_DATE = edu_start_date,
                     EDUCATION_END_DATE = edu_end_date,
-                    CANDIDATE_INTERVIEW_DATE = DataNewCandidate.CANDIDATE_INTERVIEW_DATE
+                    CANDIDATE_INTERVIEW_DATE = DataNewCandidate.CANDIDATE_INTERVIEW_DATE,
+                    LAST_UPDATE = LastUpdate
                 });
 
                 int res = 0;
@@ -216,7 +220,8 @@ namespace FinalProject.DTO
                             CANDIDATE_SOURCE = DataNewCandidate.SOURCE,
                             CANDIDATE_EXPECTED_SALARY = DataNewCandidate.EXPECTED_sALARY,
                             CANDIDATE_STATE = 1,
-                            NOTES = DataNewCandidate.NOTES
+                            NOTES = DataNewCandidate.NOTES,
+                            LAST_UPDATE = LastUpdate
                         });
                     db.SaveChanges();
                     res = 1;
@@ -231,6 +236,8 @@ namespace FinalProject.DTO
             using(DBEntities db = new DBEntities())
             {
                 TB_CANDIDATE Candidate = db.TB_CANDIDATE.FirstOrDefault(d => d.ID == Data.ID);
+
+                
 
                 //process file pict candidate
                 string pict_name = "-";
@@ -253,15 +260,25 @@ namespace FinalProject.DTO
                 }
 
                 //process to convert datetime
-                var birth_date = Convert.ToDateTime(Data.CANDIDATE_BIRTH_DATE);
+                var birth_date = Convert.ToDateTime(Data.CANDIDATE_BIRTH_DATE); 
                 var edu_start_date = Convert.ToDateTime(Data.EDUCATON_START_DATE);
                 var edu_end_date = Convert.ToDateTime(Data.EDUCATON_END_DATE);
+
+
+                var LastUpdate = DateTime.Now;
 
                 //add selection history
                 if (Candidate.CANDIDATE_STATE_ID != Data.CANDIDATE_STATE_ID)
                 {
                     //insert selection history
                     UserDTO UserLogin = (UserDTO)HttpContext.Current.Session["UserLogin"];
+
+                    //EDIT FIELD VIEWS INFORMATION TO MAKE EACH OF SELECTION HISTORY THAT SELECT WITH PROGRAM IS BEING NOT DISPLAY. BUT STILL BE ABLE TO SEE IT AT TABLE SELECTION HISTORY ON DETAILS INFORMATION OF CANDIDATE
+                    foreach (var item in db.TB_CANDIDATE_SELECTION_HISTORY.Where(m => m.CANDIDATE_ID == Data.ID)) {
+                        item.VIEWS_INFORMATION = "NO";
+                    }
+
+                    //THEN ADD TO SELECTION HISTORY FOR DISPLAY WITH LAST EDIT STATE
 
                     db.TB_CANDIDATE_SELECTION_HISTORY.Add(new TB_CANDIDATE_SELECTION_HISTORY
                     {
@@ -275,8 +292,11 @@ namespace FinalProject.DTO
                         CANDIDATE_STATE = Data.CANDIDATE_STATE_ID,
                         NOTES = Data.NOTES,
                         PROCESS_DATE = DateTime.Now,
-                        CANDIDATE_INTERVIEW_DATE = Data.CANDIDATE_INTERVIEW_DATE
-                    });
+                        CANDIDATE_INTERVIEW_DATE = Data.CANDIDATE_INTERVIEW_DATE,
+                        VIEWS_INFORMATION = "YES",
+                        LAST_UPDATE = LastUpdate
+
+                    }) ;
                     db.SaveChanges();
                 }
 
@@ -319,6 +339,7 @@ namespace FinalProject.DTO
                 Candidate.EDUCATION_START_DATE = edu_start_date;
                 Candidate.EDUCATION_END_DATE = edu_end_date;
                 Candidate.CANDIDATE_INTERVIEW_DATE = Data.CANDIDATE_INTERVIEW_DATE;
+                Candidate.LAST_UPDATE = LastUpdate;
 
                 List<string> Skills = db.TB_CANDIDATE_SKILL.Where(d => d.CANDIDATE_ID == Data.ID).Select(d => d.SKILL).ToList();
                 if (Skills.Count > 0)
@@ -388,12 +409,30 @@ namespace FinalProject.DTO
                     RELIGION = db.TB_RELIGION.FirstOrDefault(d => d.RELIGION_ID == ca.RELIGION_ID).RELIGION_NAME,
                     GENDER_NAME = db.TB_GENDER.FirstOrDefault(d => d.GENDER_ID == ca.GENDER_ID).GENDER_NAME,
                     SUITABLE_POSITION = ca.SUITABLE_POSITION,
-                    CANDIDATE_INTERVIEW_DATE = ca.CANDIDATE_INTERVIEW_DATE
+                    CANDIDATE_INTERVIEW_DATE = ca.CANDIDATE_INTERVIEW_DATE,
+                    LAST_UPDATE = ca.LAST_UPDATE
                 }).ToList();
                 return ListCandidateDTO;
             }
         }
 
+
+        // =========================================================================== DELETE DATA CANDIDATE =================================================================
+           public static int DeleteDataCandidate(int CandidateId)
+        {
+            using (DBEntities db = new DBEntities()){
+                var Cand = db.TB_CANDIDATE.FirstOrDefault(m => m.ID == CandidateId);
+                db.TB_CANDIDATE.Remove(Cand);
+
+
+                foreach (var item in db.TB_CANDIDATE_SELECTION_HISTORY.Where(m => m.CANDIDATE_ID == CandidateId)){
+                    db.TB_CANDIDATE_SELECTION_HISTORY.Remove(item);
+                }
+
+                return db.SaveChanges();
+            }
+            
+        }
         //------------------------------------------------ get job experience
        public static List<CandidateJobExperienceDTO> GetJobExp(int CandidateId)
         {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="FinalProject_adp3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="JOB_PORTAL">
     <Key>
       <PropertyRef Name="JOB_ID" />
@@ -86,6 +86,7 @@
     <NavigationProperty Name="TB_GENDER" Relationship="Self.FK__TB_CANDID__GENDE__6FE99F9F" FromRole="TB_CANDIDATE" ToRole="TB_GENDER" />
     <NavigationProperty Name="TB_MARITALSTATUS" Relationship="Self.FK__TB_CANDID__MARIT__6EF57B66" FromRole="TB_CANDIDATE" ToRole="TB_MARITALSTATUS" />
     <NavigationProperty Name="TB_RELIGION" Relationship="Self.FK__TB_CANDID__RELIG__70DDC3D8" FromRole="TB_CANDIDATE" ToRole="TB_RELIGION" />
+    <Property Name="LAST_UPDATE" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="TB_CANDIDATE_EDUCATION_HISTORY">
     <Key>
@@ -126,13 +127,17 @@
     <Property Name="CANDIDATE_SUITABLE_POSITION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="CANDIDATE_SOURCE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="CANDIDATE_STATE" Type="Int32" />
+    <Property Name="CANDIDATE_CLIENT" Type="Int32" />
     <Property Name="CANDIDATE_EXPECTED_SALARY" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CANDIDATE_INTERVIEW_DATE" Type="DateTime" Precision="3" />
+    <Property Name="LAST_UPDATE" Type="DateTime" Precision="3" />
     <Property Name="PROCESS_DATE" Type="DateTime" Precision="3" />
     <Property Name="NOTES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="TB_CANDIDATE" Relationship="Self.FK__TB_CANDID__CANDI__75A278F5" FromRole="TB_CANDIDATE_SELECTION_HISTORY" ToRole="TB_CANDIDATE" />
     <NavigationProperty Name="TB_STATE_CANDIDATE" Relationship="Self.FK__TB_CANDID__CANDI__778AC167" FromRole="TB_CANDIDATE_SELECTION_HISTORY" ToRole="TB_STATE_CANDIDATE" />
     <NavigationProperty Name="TB_USER" Relationship="Self.FK__TB_CANDID__USER___76969D2E" FromRole="TB_CANDIDATE_SELECTION_HISTORY" ToRole="TB_USER" />
+    <Property Name="VIEWS_INFORMATION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DELIVERY_ID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="TB_CANDIDATE_SKILL">
     <Key>

@@ -5,9 +5,12 @@
     @ViewBag.DataView["title"]
 }
 @section content{
-    <!-- Alert -->
 
-    <h2 class="text-center">Candidate | Suggested</h2>
+    <!-- Checking User -->
+    @{UserDTO DataUserLogin = (UserDTO)Context.Session["UserLogin"];
+    }
+    <!-- Alert -->
+    <h2 class="text-center">Candidate | Suggestion</h2>
     <hr class="bg-blue" />
     @if (TempData["message"] != null)
     {
@@ -60,84 +63,92 @@
     <div class="container">
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                
-                <a class="nav-brand nav-link active" align="center" id="nav-profile-tab" href="~/candidate/suggestion/read" role="tab" aria-selected="false">List Suggestion Candidate</a>
+                <a class="nav-item nav-link active" align="center" id="nav-home-tab" data-toggle="tab" href="~/candidate/suggestion/read" role="tab" aria-controls="nav-home" aria-selected="true"> Suggestion</a>
+                <a class="nav-brand nav-link" align="center" id="nav-profile-tab" href="~/candidate/suggestion/read/suggested" role="tab" aria-selected="false">Suggested</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active col mt-3" id="nav-call" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="">
                     <!-- Search form -->
-                    <form class="form-inline md-form form-sm mt-4" action="~/candidate/suggestion/read" id="FormFilter" method="post">
+                    <form class="form-inline md-form form-sm mt-4" action="~/candidate/delivery/read" id="FormFilter" method="post">
                         <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search" value="" name="Keyword">
-                        <i class="fas fa-search mr-3" aria-hidden="true"></i>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn fas fa-question-circle" data-toggle="modal" data-target="#exampleModal">
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Untuk penggunaan fitur "Search" : Anda bisa mencari kandidat yang mengandung suatu huruf atau kata yang terdapat dalam; nama, alamat email, atau dengan no teleponnya. <br />
+                                        PERHATIAN : Fitur "Search" ini menggunakan Case Sensitive yang berarti bahwa kecil atau besarnya huruf sangat diperhitungkan. Contoh : Nama Kandidat adalah Muhammad Galih, namun jika anda mencari dengan kata MUHAMMAD  GALIH atau muhammad galih. Maka nama kandidat Muhammad Galih tidak akan keluar.  <br />
+                                        <br />
+                                        Untuk penggunaan fitur "Data Per Page" : Anda bisa memasukkan kolom tersebut dengan nilai angka untuk menentukan jumlah kandidate yang bisa anda lihat dalam satu halaman.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Data Per Page" aria-label="Search" value="" name="DataPerPage">
-                        <select class="form-control form-control-sm mr-3 float-right" name="CLIENT" id="ListClient">
-                            <option value="0">All</option>
-                            @foreach (var pos in ViewBag.DataView["ListClient"])
-                            {
-                                <option value="@pos.ID">@pos.CLIENT_NAME</option>
-                            }
-                        </select>
                         <input type="submit" class="btn btn-primary mr-3 float-right" value="Filter" name="filter" />
                     </form>
-                    <table class="table table-striped table-bordered table-sm table-responsive mt-4">
-                        <thead class="table-primary text-center ">
-                            <tr class="text-center">
-                                <th scope="col" valign="middle">Nama</th>
-                                <th scope="col" valign="middle">Applied Potition</th>
+                    <table class="table table-striped table-bordered table-lg table-responsive mt-4">
+                        <thead class="table-primary text-center">
+                            <tr class=text-center>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Applied Position</th>
+                                <th scope="col">Suitable Position</th>
                                 <th scope="col">Source</th>
-                                <th scope="col">ID Delivery</th>
-                                <th scope="col">Client Name</th>
                                 <th scope="col">Number Phone</th>
-                                <th scope="col">Delivery Date</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Delivery PIC</th>
+                                <th scope="col">Expected</th>
+                                <th scope="col">Interview PIC</th>
+                                <th scope="col">Sourcing Date</th>
                                 <th scope="col">State</th>
-                                <th scope="col">Last Edit By</th>
-                                <th scope="col">Last Edit Date</th>
-                                <th scope="col">Notes</th>
+                                <th scope="col">Interview Notes</th>
                                 <th scope="col" colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var candidate in Model)
                             {
-                            <tr>
-                                <td>@candidate.CANDIDATE_NAME</td>
-                                <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
-                                <td>@candidate.CANDIDATE_SOURCE</td>
-                                <td>@Manage_DeliveryHistoryDTO.GetData().FirstOrDefault(m => m.CANDIDATE_ID == candidate.CANDIDATE_ID).DELIVERY_ID</td>
-                                <td>@Manage_ClientDTO.GetData().FirstOrDefault(m => m.ID == Manage_DeliveryHistoryDTO.GetData().FirstOrDefault(p => p.CANDIDATE_ID == candidate.CANDIDATE_ID).CLIENT_ID).CLIENT_NAME</td>
-                                <td>@candidate.CANDIDATE_PHONE</td>
-                                <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", Manage_DeliveryHistoryDTO.GetData().FirstOrDefault(m => m.CANDIDATE_ID == candidate.CANDIDATE_ID).START_DATE))</td>
-                                <td>@candidate.CANDIDATE_EMAIL</td>
-                                <td>@Manage_UserDTO.GetDataUser().FirstOrDefault(usr => usr.USER_ID == Manage_DeliveryHistoryDTO.GetData().OrderByDescending(de => de.START_DATE).FirstOrDefault(de => de.CANDIDATE_ID == candidate.CANDIDATE_ID).LAST_PIC).FULL_NAME</td>
-                                <td>@candidate.CANDIDATE_STATE_NAME</td>
-                                <td>@Manage_UserDTO.GetDataUser().FirstOrDefault(usr => usr.USER_ID == UserLogingUtils.GetLogUser().OrderByDescending(log => log.Time).FirstOrDefault(log => log.Notes == "edit suggest state of candidate id " + candidate.CANDIDATE_ID).USER_ID).FULL_NAME</td>
-                                <td> @Convert.ToDateTime(UserLogingUtils.GetLogUser().FirstOrDefault(log => log.Notes == "edit suggest state of candidate id " + candidate.CANDIDATE_ID).Time).ToString("dd/MM/yyyy")</td>
-                                <td>@candidate.NOTES</td>
-                                <td>
-                                    <a class="btn btn-success" href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID">Details</a>
-
-                                </td>
-
-                                <td>
-                                    <button type="button" class="btn btn-primary btn_edit @MenuUtils.CheckButtonAcc(2, 29)" data-toggle="modal" data-target="#ModalEdit"
-                                            data-selection_id="@candidate.ID"
-                                            data-candidate_id="@candidate.CANDIDATE_ID"
-                                            data-client_id="@Manage_DeliveryHistoryDTO.GetData().OrderByDescending(d => d.START_DATE).FirstOrDefault(d => d.CANDIDATE_ID == candidate.CANDIDATE_ID).CLIENT_ID"
-                                            data-state_id="@candidate.CANDIDATE_STATE"
-                                            data-delivery_id="@Manage_DeliveryHistoryDTO.GetData().OrderByDescending(d => d.START_DATE).FirstOrDefault(d => d.CANDIDATE_ID == candidate.CANDIDATE_ID).DELIVERY_ID"
-                                            data-id="@Manage_DeliveryHistoryDTO.GetData().OrderByDescending(d => d.START_DATE).FirstOrDefault(d => d.CANDIDATE_ID == candidate.CANDIDATE_ID).CANDIDATE_ID">
-                                        Edit
-                                    </button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@candidate.CANDIDATE_NAME</td>
+                                    <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
+                                    <td>@candidate.CANDIDATE_SUITABLE_POSITION</td>
+                                    <td>@candidate.CANDIDATE_SOURCE</td>
+                                    <td>@candidate.CANDIDATE_PHONE</td>
+                                    <td>@(String.Format("{0:C}", candidate.CANDIDATE_EXPECTED_SALARY))</td>
+                                    <td>@candidate.PIC_FULL_NAME</td>
+                                    <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", candidate.CANDIDATE_SOURCING_DATE))</td>
+                                    <td>@candidate.CANDIDATE_STATE_NAME</td>
+                                    <td>@candidate.NOTES</td>
+                                    <td>
+                                        <a class="btn btn-success" href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID">Details</a>
+                                    </td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary btn_next " data-toggle="modal" data-target="#NextModal"
+                                                data-candidate_id="@candidate.CANDIDATE_ID"
+                                                data-suggestion_date="@candidate.PROCESS_DATE">
+                                            Next
+                                        </button>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
-                    <hr class="bg-blue" />
+                    <!-- Check Link for Pagination Active-->
+
                     @{ int length = Request.Url.ToString().Split('/').Length;}
                     <hr class="bg-blue" />
                     <nav aria-label="Page navigation example">
@@ -148,25 +159,24 @@
                                 {
                                     if (i == 1)
                                     {
-                                        <li class="page-item active"><a class="page-link " href="~/candidate/suggestion/read/@i">@i</a></li>
+                                        <li class="page-item active"><a class="page-link " href="~/candidate/delivery/read/@i">@i</a></li>
                                     }
                                     else
                                     {
-                                        <li class="page-item"><a class="page-link" href="~/candidate/suggestion/read/@i">@i</a></li>
+                                        <li class="page-item"><a class="page-link" href="~/candidate/delivery/read/@i">@i</a></li>
                                     }
 
 
                                 }
                                 else
                                 {
-                                    if (Convert.ToInt32(Request.Url.ToString().Split('/').Last()) == i)
+                                    if (Convert.ToInt16(Request.Url.ToString().Split('/').Last()) == i)
                                     {
-                                        <li class="page-item active"><a class="page-link " href="~/candidate/suggestion/read/@i">@i</a></li>
+                                        <li class="page-item active"><a class="page-link" href="~/candidate/delivery/read/@i">@i</a></li>
                                     }
                                     else
                                     {
-                                        <li class="page-item"><a class="page-link" href="~/candidate/suggestion/read/@i">@i</a></li>
-
+                                        <li class="page-item"><a class="page-link" href="~/candidate/delivery/read/@i">@i</a></li>
                                     }
                                 }
 
@@ -180,42 +190,46 @@
             </div>
         </div>
         <!-- Modal Next -->
-        <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="NextModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="~/candidate/suggestion/update" method="post" enctype="multipart/form-data">
+                        <form action="~/candidate/suggestion/create/next" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="CANDIDATE_ID" id="CANDIDATE_ID" />
-                            <input type="hidden" name="SELECTION_ID" id="SELECTION_ID" />
-                            <div class="form-group">
-                                <label for="CANDIDATE_STATE">State</label>
-                                <select class="form-control" id="CANDIDATE_STATE" name="CANDIDATE_STATE">
-
-                                        @foreach (var client in Manage_StateCandidateDTO.GetData().Where(d => new List<int>() {14, 21}.Contains(d.ID)))
-                                        {
-                                            <option class="states" value="@client.ID">@client.STATE_NAME</option>
-                                        }
-
-                                </select>
-                            </div>
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Client Company</label>
                                 <select class="form-control" id="CLIENT_ID" name="CLIENT_ID">
                                     @foreach (var client in Manage_ClientDTO.GetData())
                                     {
-                                        <option class="clients" value="@client.ID">@client.CLIENT_NAME</option>
+                                        <option value="@client.ID">@client.CLIENT_NAME</option>
                                     }
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="DeliveryId">Id Delivery</label>
-                                <input type="text" class="form-control" id="DELIVERY_ID" value="" name="DELIVERY_ID">
+                                <input type="text" class="form-control" id="DeliveryId" value="DEL@(DateTime.Now.ToString("ffff"))" name="DELIVERY_ID">
+                            </div>
+                            <div class="form-group">
+                                <label for="DeliveryId">Suggestion Date<font color="red">*</font></label>
+                                <input type="text" class="form-control" id="SuggestionDate" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">State</label>
+                                <select class="form-control" id="CANDIDATE_STATE" name="CANDIDATE_STATE">
+                                    @foreach (var state in ViewBag.DataView["ListState"])
+                                    {
+                                        <option value="@state.ID">@state.STATE_NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Note</label>
+                                <textarea class="form-control" id="NOTE" rows="3" name="NOTE"></textarea>
                             </div>
                             <button type="submit" name="send" class="btn btn-success">Save changes</button>
                         </form>
@@ -226,7 +240,5 @@
                 </div>
             </div>
         </div>
-    </div>
-        <script src="~/Content/Assets/Js/candidate/delivery/suggest.js"></script>
-}
-
+        <script src="~/Content/Assets/Js/candidate/delivery/Delivery.js"></script>
+    }

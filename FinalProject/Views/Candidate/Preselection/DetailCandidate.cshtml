@@ -271,7 +271,7 @@
                                     <tr>
                                         <td>@SelectHistory.CANDIDATE_ID</td>
                                         <td>@SelectHistory.CANDIDATE_APPLIED_POSITION</td>
-                                        <td>@SelectHistory.CANDIDATE_SUITABLE_POSITION</td>
+                                        <td>@(SelectHistory.CANDIDATE_SUITABLE_POSITION == null ? "-" : SelectHistory.CANDIDATE_SUITABLE_POSITION)</td>
                                         <td>@SelectHistory.CANDIDATE_SOURCE</td>
                                         <td>@SelectHistory.CANDIDATE_STATE_NAME</td>
                                         <td>@String.Format("{0:C}", SelectHistory.CANDIDATE_EXPECTED_SALARY)</td>

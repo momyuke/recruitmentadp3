@@ -11,6 +11,14 @@
     <hr class="bg-blue" />
 
     <div class="container">
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" align="center" id="nav-home-tab" data-toggle="tab" href="#nav-call" role="tab" aria-controls="nav-home" aria-selected="true">Pra-Selection</a>
+                <a class="nav-brand nav-link" align="center" id="nav-profile-tab" href="~/candidate/praselection/read/praselected/" role="tab" aria-selected="false">Pra-Selected</a>
+            </div>
+        </nav>
+
         @Html.ValidationSummary()
         <!-- Alert -->
         @if (TempData["message"] != null)
@@ -25,9 +33,36 @@
         <!-- Search form -->
         <a class="btn btn-primary @MenuUtils.CheckButtonAcc(1, 11)" href="~/candidate/praselection/create/candidate">Add New Candidate</a>
         <form class="form-inline md-form form-sm mt-4" action="~/candidate/praselection/read" id="FormFilter" method="post">
-            <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search" value="" name="Keyword"><i class="fas fa-search mr-3" aria-hidden="true"></i>
+            <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search" value="" name="Keyword">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn fas fa-question-circle" data-toggle="modal" data-target="#exampleModal">
+                
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Untuk penggunaan fitur "Search" : Anda bisa mencari kandidat yang mengandung suatu huruf atau kata yang terdapat dalam; nama, alamat email, atau dengan no teleponnya. <br />
+                            PERHATIAN : Fitur "Search" ini menggunakan Case Sensitive yang berarti bahwa kecil atau besarnya huruf sangat diperhitungkan. Contoh : Nama Kandidat adalah Muhammad Galih, namun jika anda mencari dengan kata MUHAMMAD  GALIH atau muhammad galih. Maka nama kandidat Muhammad Galih tidak akan keluar.  <br />
+                            <br />
+                            Untuk penggunaan fitur "Data Per Page" : Anda bisa memasukkan kolom tersebut dengan nilai angka untuk menentukan jumlah kandidate yang bisa anda lihat dalam satu halaman.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Data Per Page" aria-label="Search" value="" name="DataPerPage">
-            
+
             <select class="form-control form-control-sm mr-3 float-right" name="POSITION" id="ListPosition">
                 <option value="all">All</option>
                 @foreach (var pos in ViewBag.DataView["ListPosition"])
@@ -44,93 +79,100 @@
             </select>
             <input type="submit" class="btn btn-primary mr-3 float-right mb-2 mt-1" value="Filter" name="filter" />
         </form>
-            <table id="table-id" class="table table-striped table-bordered table-sm table-responsive" cellspacing="0">
-                <thead class="table-primary text-center">
-                    <tr class="text-center">
-                        <th scope="col">Name</th>
-                        <th scope="col">Applied Potition</th>
-                        <th scope="col">Suitable Potition</th>
-                        <th scope="col">Source</th>
-                        <th scope="col">Phone Number</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">PIC</th>
-                        <th scope="col">Sourcing Date</th>
-                        <th scope="col">State</th>
-                        <th scope="col">Notes</th>
-                        <th scope="col" colspan="2">Action</th>
+       
+        <table id="table-id" class="table table-striped table-bordered table-sm table-responsive" cellspacing="0">
+            <thead class="table-primary text-center">
+                <tr class="text-center">
+                    <th scope="col">Name</th>
+                    <th scope="col">Applied Potition</th>
+                    <th scope="col">Suitable Potition</th>
+                    <th scope="col">Source</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">PIC</th>
+                    <th scope="col">Sourcing Date</th>
+                    <th scope="col">State</th>
+                    <th scope="col">Notes</th>
+                    <th scope="col" colspan="3">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*@foreach (var candidate in Model)*@
+                @foreach (var data in Model)
+                {
+                    <tr>
+                        <td>@data.CANDIDATE_NAME</td>
+                        <td>@data.CANDIDATE_APPLIED_POSITION</td>
+                        <td>@data.CANDIDATE_SUITABLE_POSITION</td>
+                        <td>@data.CANDIDATE_SOURCE</td>
+                        <td>@data.CANDIDATE_PHONE</td>
+                        <td>@data.CANDIDATE_EMAIL</td>
+                        <td>@data.PIC_FULL_NAME</td>
+                        <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", data.CANDIDATE_SOURCING_DATE))</td>
+                        <td>@data.CANDIDATE_STATE_NAME</td>
+                        <td>@data.NOTES</td>
+                        <td>
+
+                            <a class="@MenuUtils.CheckButtonAcc(2, 11) btn btn-primary" href="~/candidate/praselection/update/candidate/@data.CANDIDATE_ID">Edit</a>
+                        </td>
+                        <td>
+                            <a class="ml-3 btn btn-success" href="~/candidate/praselection/read/detailcandidate/@data.CANDIDATE_ID">Detail</a>
+                        </td>
+                        <td>
+                            <a class="ml-3 btn btn-danger " href="~/candidate/praselection/delete/@data.CANDIDATE_ID">Delete </a>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @*@foreach (var candidate in Model)*@
-                    @foreach (var data in Model)
+
+                }
+            </tbody>
+        </table>
+
+
+        <!--For Pagination Mank-->
+        @{ int length = Request.Url.ToString().Split('/').Length;}
+        <hr class="bg-blue" />
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @for (int i = 1; i <= Convert.ToInt16(ViewBag.DataView["PageCount"]); i++)
+                {
+                    if (length <= 7)
                     {
-                        <tr>
-                            <td>@data.CANDIDATE_NAME</td>
-                            <td>@data.CANDIDATE_APPLIED_POSITION</td>
-                            <td>@data.CANDIDATE_SUITABLE_POSITION</td>
-                            <td>@data.CANDIDATE_SOURCE</td>
-                            <td>@data.CANDIDATE_PHONE</td>
-                            <td>@data.CANDIDATE_EMAIL</td>
-                            <td>@data.PIC_FULL_NAME</td>
-                            <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", data.CANDIDATE_SOURCING_DATE))</td>
-                            <td>@(data.CANDIDATE_STATE > 1 ? "Process" : "Unprocess")</td>
-                            <td>@data.NOTES</td>
-                            <td>
-
-                                <a class="@MenuUtils.CheckButtonAcc(2, 11)" href="~/candidate/praselection/update/candidate/@data.CANDIDATE_ID"><i class="fas fa-edit "></i></a>
-                            </td>
-                            <td>
-                                <a class="ml-3" href="~/candidate/praselection/read/detailcandidate/@data.CANDIDATE_ID"><i class="fas fa-search-plus"></i></a>
-                            </td>
-                        </tr>
-
-                    }
-                </tbody>
-            </table>
-
-
-            <!--For Pagination Mank-->
-            @{ int length = Request.Url.ToString().Split('/').Length;}
-            <hr class="bg-blue" />
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    @for (int i = 1; i <= Convert.ToInt16(ViewBag.DataView["PageCount"]); i++)
-                    {
-                        if (length <= 7)
+                        if (i == 1)
                         {
-                            if (i == 1)
-                            {
-                                <li class="page-item active"><a class="page-link " href="~/candidate/praselection/read/@i">@i</a></li>
-                            }
-                            else
-                            {
-                                <li class="page-item"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
-                            }
-
-
+                            <li class="page-item active"><a class="page-link " href="~/candidate/praselection/read/@i">@i</a></li>
                         }
                         else
                         {
-                            if (Convert.ToInt16(Request.Url.ToString().Split('/').Last()) == i)
-                            {
-                                <li class="page-item active"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
-                            }
-                            else
-                            {
-                                <li class="page-item"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
-                            }
+                            <li class="page-item"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
                         }
 
+
+                    }
+                    else
+                    {
+                        if (Convert.ToInt16(Request.Url.ToString().Split('/').Last()) == i)
+                        {
+                            <li class="page-item active"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="~/candidate/praselection/read/@i">@i</a></li>
+                        }
                     }
 
-                </ul>
+                }
 
-            </nav>
-            <!--End Pagination Mank-->
-            <script src="https://code.highcharts.com/highcharts.js"></script>
-            <script src="https://code.highcharts.com/modules/exporting.js"></script>
-            <script src="https://code.highcharts.com/modules/export-data.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            </ul>
 
-</div>
-}
+        </nav>
+        <!--End Pagination Mank-->
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    </div>
+
+
+    }

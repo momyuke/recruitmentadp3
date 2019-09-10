@@ -51,5 +51,12 @@ namespace FinalProject.DTO
                 }).ToList();
             }
         }
+
+        public static int GetUserID()
+        {
+
+            UserDTO UserId = (UserDTO)HttpContext.Current.Session["UserLogin"];
+            return UserId.USER_ID;
+        }
     }
 }

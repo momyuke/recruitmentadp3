@@ -24,9 +24,11 @@ namespace FinalProject.Models
         public Nullable<int> CANDIDATE_CLIENT { get; set; }
         public Nullable<decimal> CANDIDATE_EXPECTED_SALARY { get; set; }
         public Nullable<System.DateTime> CANDIDATE_INTERVIEW_DATE { get; set; }
+        public Nullable<System.DateTime> LAST_UPDATE { get; set; }
         public Nullable<System.DateTime> PROCESS_DATE { get; set; }
         public string NOTES { get; set; }
-        public Nullable<System.DateTime> LAST_UPDATE { get; set; }
+        public string VIEWS_INFORMATION { get; set; }
+        public string DELIVERY_ID { get; set; }
     
         public virtual TB_CANDIDATE TB_CANDIDATE { get; set; }
         public virtual TB_STATE_CANDIDATE TB_STATE_CANDIDATE { get; set; }

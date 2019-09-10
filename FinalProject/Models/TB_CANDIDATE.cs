@@ -61,6 +61,7 @@ namespace FinalProject.Models
         public string RECOMENDATION { get; set; }
         public Nullable<System.DateTime> AVAILABLE_JOIN { get; set; }
         public Nullable<System.DateTime> CANDIDATE_INTERVIEW_DATE { get; set; }
+        public Nullable<System.DateTime> LAST_UPDATE { get; set; }
     
         public virtual TB_STATE_CANDIDATE TB_STATE_CANDIDATE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

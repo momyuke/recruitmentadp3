@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBEntities">
+  <EntityContainerMapping StorageEntityContainer="FinalProject_adp3ModelStoreContainer" CdmEntityContainer="DBEntities">
     <EntitySetMapping Name="JOB_PORTAL">
-      <EntityTypeMapping TypeName="DBModel.JOB_PORTAL">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.JOB_PORTAL">
         <MappingFragment StoreEntitySet="JOB_PORTAL">
           <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
           <ScalarProperty Name="JOBPORTAL_NAME" ColumnName="JOBPORTAL_NAME" />
@@ -11,7 +11,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_ACCESS_MENU">
-      <EntityTypeMapping TypeName="DBModel.TB_ACCESS_MENU">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_ACCESS_MENU">
         <MappingFragment StoreEntitySet="TB_ACCESS_MENU">
           <ScalarProperty Name="ACCESS_MENU_ID" ColumnName="ACCESS_MENU_ID" />
           <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
@@ -20,7 +20,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_ACTION_CANDIDATE">
-      <EntityTypeMapping TypeName="DBModel.TB_ACTION_CANDIDATE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_ACTION_CANDIDATE">
         <MappingFragment StoreEntitySet="TB_ACTION_CANDIDATE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ACTION_NAME" ColumnName="ACTION_NAME" />
@@ -28,7 +28,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_BENEFIT_JOB_EXPERIENCE">
-      <EntityTypeMapping TypeName="DBModel.TB_BENEFIT_JOB_EXPERIENCE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_BENEFIT_JOB_EXPERIENCE">
         <MappingFragment StoreEntitySet="TB_BENEFIT_JOB_EXPERIENCE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="JOB_EXP_ID" ColumnName="JOB_EXP_ID" />
@@ -37,8 +37,9 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CANDIDATE">
-      <EntityTypeMapping TypeName="DBModel.TB_CANDIDATE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CANDIDATE">
         <MappingFragment StoreEntitySet="TB_CANDIDATE">
+          <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
           <ScalarProperty Name="CANDIDATE_NAME" ColumnName="CANDIDATE_NAME" />
@@ -83,7 +84,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CANDIDATE_EDUCATION_HISTORY">
-      <EntityTypeMapping TypeName="DBModel.TB_CANDIDATE_EDUCATION_HISTORY">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CANDIDATE_EDUCATION_HISTORY">
         <MappingFragment StoreEntitySet="TB_CANDIDATE_EDUCATION_HISTORY">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CANDIDATE_SCHOOL_NAME" ColumnName="CANDIDATE_SCHOOL_NAME" />
@@ -94,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CANDIDATE_JOB_EXPERIENCE">
-      <EntityTypeMapping TypeName="DBModel.TB_CANDIDATE_JOB_EXPERIENCE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CANDIDATE_JOB_EXPERIENCE">
         <MappingFragment StoreEntitySet="TB_CANDIDATE_JOB_EXPERIENCE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
@@ -112,8 +113,10 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CANDIDATE_SELECTION_HISTORY">
-      <EntityTypeMapping TypeName="DBModel.TB_CANDIDATE_SELECTION_HISTORY">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CANDIDATE_SELECTION_HISTORY">
         <MappingFragment StoreEntitySet="TB_CANDIDATE_SELECTION_HISTORY">
+          <ScalarProperty Name="DELIVERY_ID" ColumnName="DELIVERY_ID" />
+          <ScalarProperty Name="VIEWS_INFORMATION" ColumnName="VIEWS_INFORMATION" />
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
           <ScalarProperty Name="PIC_ID" ColumnName="PIC_ID" />
@@ -121,15 +124,17 @@
           <ScalarProperty Name="CANDIDATE_SUITABLE_POSITION" ColumnName="CANDIDATE_SUITABLE_POSITION" />
           <ScalarProperty Name="CANDIDATE_SOURCE" ColumnName="CANDIDATE_SOURCE" />
           <ScalarProperty Name="CANDIDATE_STATE" ColumnName="CANDIDATE_STATE" />
+          <ScalarProperty Name="CANDIDATE_CLIENT" ColumnName="CANDIDATE_CLIENT" />
           <ScalarProperty Name="CANDIDATE_EXPECTED_SALARY" ColumnName="CANDIDATE_EXPECTED_SALARY" />
           <ScalarProperty Name="CANDIDATE_INTERVIEW_DATE" ColumnName="CANDIDATE_INTERVIEW_DATE" />
+          <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
           <ScalarProperty Name="PROCESS_DATE" ColumnName="PROCESS_DATE" />
           <ScalarProperty Name="NOTES" ColumnName="NOTES" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CANDIDATE_SKILL">
-      <EntityTypeMapping TypeName="DBModel.TB_CANDIDATE_SKILL">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CANDIDATE_SKILL">
         <MappingFragment StoreEntitySet="TB_CANDIDATE_SKILL">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CANDIDATE_ID" ColumnName="CANDIDATE_ID" />
@@ -138,7 +143,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_CLIENT">
-      <EntityTypeMapping TypeName="DBModel.TB_CLIENT">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_CLIENT">
         <MappingFragment StoreEntitySet="TB_CLIENT">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="CLIENT_ID" ColumnName="CLIENT_ID" />
@@ -150,7 +155,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_DELIVERY_HISTORY">
-      <EntityTypeMapping TypeName="DBModel.TB_DELIVERY_HISTORY">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_DELIVERY_HISTORY">
         <MappingFragment StoreEntitySet="TB_DELIVERY_HISTORY">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="DELIVERY_ID" ColumnName="DELIVERY_ID" />
@@ -171,7 +176,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_GENDER">
-      <EntityTypeMapping TypeName="DBModel.TB_GENDER">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_GENDER">
         <MappingFragment StoreEntitySet="TB_GENDER">
           <ScalarProperty Name="GENDER_ID" ColumnName="GENDER_ID" />
           <ScalarProperty Name="GENDER_NAME" ColumnName="GENDER_NAME" />
@@ -179,7 +184,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_JOB_POSITION">
-      <EntityTypeMapping TypeName="DBModel.TB_JOB_POSITION">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_JOB_POSITION">
         <MappingFragment StoreEntitySet="TB_JOB_POSITION">
           <ScalarProperty Name="JOBPOSITION_ID" ColumnName="JOBPOSITION_ID" />
           <ScalarProperty Name="JOBPOSITION_NAME" ColumnName="JOBPOSITION_NAME" />
@@ -188,7 +193,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_LOG_USER_ACTIVITY">
-      <EntityTypeMapping TypeName="DBModel.TB_LOG_USER_ACTIVITY">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_LOG_USER_ACTIVITY">
         <MappingFragment StoreEntitySet="TB_LOG_USER_ACTIVITY">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
@@ -198,7 +203,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_MARITALSTATUS">
-      <EntityTypeMapping TypeName="DBModel.TB_MARITALSTATUS">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_MARITALSTATUS">
         <MappingFragment StoreEntitySet="TB_MARITALSTATUS">
           <ScalarProperty Name="MARITALSTATUS_ID" ColumnName="MARITALSTATUS_ID" />
           <ScalarProperty Name="MARITALSTATUS_NAME" ColumnName="MARITALSTATUS_NAME" />
@@ -206,7 +211,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_MENU">
-      <EntityTypeMapping TypeName="DBModel.TB_MENU">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_MENU">
         <MappingFragment StoreEntitySet="TB_MENU">
           <ScalarProperty Name="MENU_ID" ColumnName="MENU_ID" />
           <ScalarProperty Name="TITLE_MENU" ColumnName="TITLE_MENU" />
@@ -215,7 +220,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_RELIGION">
-      <EntityTypeMapping TypeName="DBModel.TB_RELIGION">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_RELIGION">
         <MappingFragment StoreEntitySet="TB_RELIGION">
           <ScalarProperty Name="RELIGION_ID" ColumnName="RELIGION_ID" />
           <ScalarProperty Name="RELIGION_NAME" ColumnName="RELIGION_NAME" />
@@ -223,7 +228,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_ROLE">
-      <EntityTypeMapping TypeName="DBModel.TB_ROLE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_ROLE">
         <MappingFragment StoreEntitySet="TB_ROLE">
           <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
           <ScalarProperty Name="ROLE_NAME" ColumnName="ROLE_NAME" />
@@ -231,7 +236,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_SKILL">
-      <EntityTypeMapping TypeName="DBModel.TB_SKILL">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_SKILL">
         <MappingFragment StoreEntitySet="TB_SKILL">
           <ScalarProperty Name="SKILL_ID" ColumnName="SKILL_ID" />
           <ScalarProperty Name="SKILL_NAME" ColumnName="SKILL_NAME" />
@@ -239,7 +244,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_SKILL_JOB_EXPERIENCE">
-      <EntityTypeMapping TypeName="DBModel.TB_SKILL_JOB_EXPERIENCE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_SKILL_JOB_EXPERIENCE">
         <MappingFragment StoreEntitySet="TB_SKILL_JOB_EXPERIENCE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ID_JOBEXP" ColumnName="ID_JOBEXP" />
@@ -248,7 +253,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_STATE_CANDIDATE">
-      <EntityTypeMapping TypeName="DBModel.TB_STATE_CANDIDATE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_STATE_CANDIDATE">
         <MappingFragment StoreEntitySet="TB_STATE_CANDIDATE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
@@ -256,7 +261,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_SUBMENU">
-      <EntityTypeMapping TypeName="DBModel.TB_SUBMENU">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_SUBMENU">
         <MappingFragment StoreEntitySet="TB_SUBMENU">
           <ScalarProperty Name="MENU_ID" ColumnName="MENU_ID" />
           <ScalarProperty Name="SUB_MENU_ID" ColumnName="SUB_MENU_ID" />
@@ -267,7 +272,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_USER">
-      <EntityTypeMapping TypeName="DBModel.TB_USER">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_USER">
         <MappingFragment StoreEntitySet="TB_USER">
           <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
           <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
@@ -279,7 +284,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_USER_ACCESS_MENU_CANDIDATE">
-      <EntityTypeMapping TypeName="DBModel.TB_USER_ACCESS_MENU_CANDIDATE">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_USER_ACCESS_MENU_CANDIDATE">
         <MappingFragment StoreEntitySet="TB_USER_ACCESS_MENU_CANDIDATE">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
@@ -289,7 +294,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TB_PREFIX">
-      <EntityTypeMapping TypeName="DBModel.TB_PREFIX">
+      <EntityTypeMapping TypeName="FinalProject_adp3Model.TB_PREFIX">
         <MappingFragment StoreEntitySet="TB_PREFIX">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="PREFIX" ColumnName="PREFIX" />

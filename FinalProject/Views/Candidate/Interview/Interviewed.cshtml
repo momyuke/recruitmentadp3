@@ -67,7 +67,32 @@
                     <!-- Search form -->
                     <form class="form-inline md-form form-sm mt-4" action="~/candidate/interview/read/interviewed" id="FormFilter" method="post">
                         <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Search" aria-label="Search" value="" name="Keyword">
-                        <i class="fas fa-search mr-3" aria-hidden="true"></i>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn fas fa-question-circle" data-toggle="modal" data-target="#exampleModal">
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Untuk penggunaan fitur "Search" : Anda bisa mencari kandidat yang mengandung suatu huruf atau kata yang terdapat dalam; nama, alamat email, atau dengan no teleponnya. <br />
+                                        PERHATIAN : Fitur "Search" ini menggunakan Case Sensitive yang berarti bahwa kecil atau besarnya huruf sangat diperhitungkan. Contoh : Nama Kandidat adalah Muhammad Galih, namun jika anda mencari dengan kata MUHAMMAD  GALIH atau muhammad galih. Maka nama kandidat Muhammad Galih tidak akan keluar.  <br />
+                                        <br />
+                                        Untuk penggunaan fitur "Data Per Page" : Anda bisa memasukkan kolom tersebut dengan nilai angka untuk menentukan jumlah kandidate yang bisa anda lihat dalam satu halaman.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <input class="form-control form-control-sm mr-3 w-50" type="text" placeholder="Data Per Page" aria-label="Search" value="" name="DataPerPage">
                         <select class="form-control form-control-sm mr-3 float-right" name="POSITION" id="ListPosition">
                             <option value="all">All</option>
@@ -94,35 +119,35 @@
                                 <th scope="col">Source</th>
                                 <th scope="col">Number Phone</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Caller PIC</th>
+                                <th scope="col">Interviewer PIC</th>
                                 <th scope="col">Sourcing Date</th>
                                 <th scope="col">State</th>
-                                <th scope="col">Caller Notes</th>
+                                <th scope="col">Interviewer Notes</th>
                                 <th scope="col" colspan="2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var candidate in Model)
                             {
-                                <tr>
-                                    <td>@candidate.CANDIDATE_NAME</td>
-                                    <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
-                                    <td>@candidate.CANDIDATE_SUITABLE_POSITION</td>
-                                    <td>@candidate.CANDIDATE_SOURCE</td>
-                                    <td>@candidate.CANDIDATE_PHONE</td>
-                                    <td>@candidate.CANDIDATE_EMAIL</td>
-                                    <td>@candidate.PIC_FULL_NAME</td>
-                                    <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", candidate.CANDIDATE_SOURCING_DATE))</td>
-                                    <td>@candidate.CANDIDATE_STATE_NAME</td>
-                                    <td>@candidate.NOTES</td>
-                                    <td>
-                                        <a href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID" class="btn btn-success input-sm">Details</a>
-                                    </td>
-                                    <td>
-                                        <a href="~/candidate/interview/update/interviewed/next/@candidate.CANDIDATE_ID" class="btn btn-info input-sm @MenuUtils.CheckButtonAcc(2,15)">Next</a>
+                            <tr>
+                                <td>@candidate.CANDIDATE_NAME</td>
+                                <td>@candidate.CANDIDATE_APPLIED_POSITION</td>
+                                <td>@(candidate.CANDIDATE_SUITABLE_POSITION == null ? "-" : candidate.CANDIDATE_SUITABLE_POSITION)</td>
+                                <td>@candidate.CANDIDATE_SOURCE</td>
+                                <td>@candidate.CANDIDATE_PHONE</td>
+                                <td>@candidate.CANDIDATE_EMAIL</td>
+                                <td>@candidate.PIC_FULL_NAME</td>
+                                <td>@Html.Encode(string.Format("{0:dd/MM/yyyy}", candidate.CANDIDATE_SOURCING_DATE))</td>
+                                <td>@candidate.CANDIDATE_STATE_NAME</td>
+                                <td>@candidate.NOTES</td>
+                                <td>
+                                    <a href="~/candidate/praselection/read/detailcandidate/@candidate.CANDIDATE_ID" class="btn btn-success input-sm">Details</a>
+                                </td>
+                                <td>
+                                    <a href="~/candidate/interview/update/interviewed/next/@candidate.CANDIDATE_ID" class="btn btn-info input-sm @MenuUtils.CheckButtonAcc(2,15)">Next</a>
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
